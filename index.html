@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PixelWise AI — Smart Educational Image Decision Engine</title>
+  <meta name="description" content="Intelligent quality-aware educational image generation platform for district education offices serving 300 schools. Minimizes cloud expenditure via asset reuse, Zero-AI vector synthesis, and expected total cost routing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <!-- Chart.js for Admin Dashboard Visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body class="dark-theme">
+
+  <!-- Top Navigation Bar -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="brand-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <span class="brand-name">PixelWise <span class="brand-highlight">AI</span></span>
+          <span class="brand-sub">District Cloud Optimization Layer • 300 Schools</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" id="main-nav-tabs">
+      <button class="nav-tab active" data-tab="teacher-view" id="tab-btn-teacher">
+        <span class="tab-icon">🖍️</span> Teacher Portal
+      </button>
+      <button class="nav-tab" data-tab="admin-view" id="tab-btn-admin">
+        <span class="tab-icon">📊</span> District Dashboard
+      </button>
+      <button class="nav-tab" data-tab="benchmark-view" id="tab-btn-benchmark">
+        <span class="tab-icon">⚡</span> Savings Benchmark
+      </button>
+      <button class="nav-tab" data-tab="library-view" id="tab-btn-library">
+        <span class="tab-icon">📁</span> Library Explorer
+      </button>
+      <button class="nav-tab" data-tab="guided-view" id="tab-btn-guided">
+        <span class="tab-icon">🎯</span> Guided Demo
+      </button>
+    </nav>
+
+    <!-- Header Right Telemetry -->
+    <div class="header-right">
+      <div class="telemetry-badge" id="header-savings-badge" title="Live Net Savings across all 300 schools">
+        <span class="badge-dot"></span>
+        <span class="badge-label">District Savings:</span>
+        <span class="badge-value" id="header-saved-value">₹60,470 (68%)</span>
+      </div>
+
+      <button class="theme-toggle-btn" id="theme-toggle-btn" title="Toggle Light/Dark Theme">
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Application Body -->
+  <main class="app-main">
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: TEACHER PORTAL                    -->
+    <!-- ========================================== -->
+    <section class="view-panel active" id="teacher-view">
+      <div class="teacher-container">
+        
+        <!-- Left: Generation Form Panel -->
+        <div class="teacher-sidebar">
+          <div class="panel-card form-card">
+            <div class="panel-header">
+              <h2>New Material Request</h2>
+              <span class="header-pill">Instant Cost-Aware Allocation</span>
+            </div>
+
+            <form id="teacher-gen-form" onsubmit="return false;">
+              <!-- School Selector -->
+              <div class="form-group">
+                <label for="school-select">Select School (out of 300)</label>
+                <select id="school-select" class="form-select">
+                  <option value="SCH-001">SCH-001: Oakridge Primary School #1 (North Zone)</option>
+                  <option value="SCH-002">SCH-002: Lincoln Elementary School #1 (South Zone)</option>
+                  <option value="SCH-003">SCH-003: St. Mary's Public School #1 (East Zone)</option>
+                  <option value="SCH-004">SCH-004: Beacon Model High School #1 (West Zone)</option>
+                  <option value="SCH-005">SCH-005: Valley View Vidyalaya #1 (Central Zone)</option>
+                </select>
+              </div>
+
+              <!-- Teacher Name -->
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="teacher-name">Teacher Name</label>
+                  <input type="text" id="teacher-name" class="form-input" value="Mrs. Sharma" placeholder="e.g. Mrs. Sharma">
+                </div>
+                <div class="form-group">
+                  <label for="grade-select">Grade Level</label>
+                  <select id="grade-select" class="form-select">
+                    <option value="kindergarten">Pre-K / Kindergarten</option>
+                    <option value="primary" selected>Primary (Class 1-5)</option>
+                    <option value="middle">Middle (Class 6-8)</option>
+                    <option value="high">High School / District</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Material Type Chips -->
+              <div class="form-group">
+                <label>Educational Material Type</label>
+                <div class="material-type-grid" id="material-chips">
+                  <button type="button" class="mat-chip active" data-type="worksheet">
+                    <span class="mat-icon">🖍️</span>
+                    <span class="mat-title">Worksheet</span>
+                    <span class="mat-hint">Coloring / Outline</span>
+                  </button>
+                  <button type="button" class="mat-chip" data-type="flashcard">
+                    <span class="mat-icon">🃏</span>
+                    <span class="mat-title">Flashcard</span>
+                    <span class="mat-hint">Concept &amp; Labels</span>
+                  </button>
+                  <button type="button" class="mat-chip" data-type="poster">
+                    <span class="mat-icon">🖼️</span>
+                    <span class="mat-title">Poster</span>
+                    <span class="mat-hint">Detailed &amp; High-Res</span>
+                  </button>
+                  <button type="button" class="mat-chip" data-type="diagram">
+                    <span class="mat-icon">📐</span>
+                    <span class="mat-title">Diagram</span>
+                    <span class="mat-hint">STEM / Schematic</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Prompt Input -->
+              <div class="form-group">
+                <div class="label-with-hint">
+                  <label for="prompt-input">Prompt Description</label>
+                  <span class="char-hint" id="prompt-char-count">0 chars</span>
+                </div>
+                <textarea id="prompt-input" class="form-textarea" rows="3" placeholder="e.g. Create an elephant colouring worksheet for a seven-year-old with thick outlines..."></textarea>
+              </div>
+
+              <!-- Prompt Suggestion Chips -->
+              <div class="suggestion-chips">
+                <span class="sugg-label">Quick Presets:</span>
+                <button type="button" class="chip-preset" data-prompt="Create an elephant colouring worksheet for a seven-year-old with thick outlines" data-type="worksheet" data-grade="kindergarten">🐘 Elephant Worksheet</button>
+                <button type="button" class="chip-preset" data-prompt="Monarch butterfly outline coloring page with symmetrical wings" data-type="worksheet" data-grade="primary">🦋 Butterfly Coloring</button>
+                <button type="button" class="chip-preset" data-prompt="Water cycle educational diagram showing evaporation and condensation" data-type="flashcard" data-grade="primary">💧 Water Cycle</button>
+                <button type="button" class="chip-preset" data-prompt="Our solar system planets educational diagram with labeled orbits" data-type="flashcard" data-grade="middle">🪐 Solar System</button>
+                <button type="button" class="chip-preset" data-prompt="District Annual Report commemorative scientific achievements poster" data-type="poster" data-grade="high">🏛️ Annual Report Poster</button>
+              </div>
+
+              <!-- Hackathon Test Hook: Defect Simulation Toggle -->
+              <div class="defect-sim-box">
+                <label class="switch-container">
+                  <input type="checkbox" id="force-defect-toggle">
+                  <span class="slider"></span>
+                  <span class="switch-label">Simulate Defect &amp; Test Auto-Correction</span>
+                </label>
+                <span class="defect-explainer">Injects muddy background to demonstrate PIL binarization fix</span>
+              </div>
+
+              <!-- Pre-Flight Router Prediction Pill -->
+              <div class="preflight-pill" id="preflight-pill">
+                <span class="preflight-icon">🔮</span>
+                <span class="preflight-text" id="preflight-text">Predicted Route: Analyzing prompt...</span>
+              </div>
+
+              <!-- Generate Button -->
+              <button type="button" id="generate-btn" class="btn btn-primary btn-generate">
+                <span class="btn-spinner" id="gen-spinner" style="display:none;"></span>
+                <span class="btn-text" id="gen-btn-text">⚡ Generate Material (Cost-Optimized)</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right: Results & Decision Transparency Inspector -->
+        <div class="teacher-content">
+          
+          <!-- Decision Pipeline Stepper Flow -->
+          <div class="panel-card decision-trace-card">
+            <div class="pipeline-header">
+              <h3>Intelligent Decision Pipeline Trace</h3>
+              <span class="pipeline-badge" id="pipeline-status-badge">Awaiting Request</span>
+            </div>
+
+            <div class="stepper-horizontal" id="pipeline-stepper">
+              <div class="step-item" id="step-1">
+                <div class="step-circle">1</div>
+                <div class="step-meta">
+                  <span class="step-title">Classification</span>
+                  <span class="step-desc" id="step-1-desc">Style &amp; Complexity</span>
+                </div>
+              </div>
+              <div class="step-line" id="line-1"></div>
+              <div class="step-item" id="step-2">
+                <div class="step-circle">2</div>
+                <div class="step-meta">
+                  <span class="step-title">Reuse Check</span>
+                  <span class="step-desc" id="step-2-desc">300-School Cache</span>
+                </div>
+              </div>
+              <div class="step-line" id="line-2"></div>
+              <div class="step-item" id="step-3">
+                <div class="step-circle">3</div>
+                <div class="step-meta">
+                  <span class="step-title">Cost Router</span>
+                  <span class="step-desc" id="step-3-desc">E(C) Optimization</span>
+                </div>
+              </div>
+              <div class="step-line" id="line-3"></div>
+              <div class="step-item" id="step-4">
+                <div class="step-circle">4</div>
+                <div class="step-meta">
+                  <span class="step-title">Generation</span>
+                  <span class="step-desc" id="step-4-desc">Resource Allocation</span>
+                </div>
+              </div>
+              <div class="step-line" id="line-4"></div>
+              <div class="step-item" id="step-5">
+                <div class="step-circle">5</div>
+                <div class="step-meta">
+                  <span class="step-title">Verification</span>
+                  <span class="step-desc" id="step-5-desc">Quality Check</span>
+                </div>
+              </div>
+              <div class="step-line" id="line-5"></div>
+              <div class="step-item" id="step-6">
+                <div class="step-circle">6</div>
+                <div class="step-meta">
+                  <span class="step-title">Delivered</span>
+                  <span class="step-desc" id="step-6-desc">Ready for Class</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mathematical Expected Total Cost Formula Breakdown Panel -->
+            <div class="ec-breakdown-box" id="ec-breakdown-box" style="display:none;">
+              <div class="ec-header">
+                <span class="ec-title">🧮 Expected Total Cost Optimization Formula: <code>E(C) = C_gen + C_verif + E(C_retry)</code></span>
+              </div>
+              <div class="ec-grid" id="ec-tiers-grid">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Savings Banner -->
+          <div class="savings-banner" id="savings-banner" style="display:none;">
+            <div class="savings-icon">🎉</div>
+            <div class="savings-info">
+              <span class="savings-headline" id="savings-headline">₹5.95 Saved (99.2% Cloud Reduction)</span>
+              <span class="savings-sub" id="savings-sub">PixelWise fulfilled this request using Zero-AI Vector Synthesis instead of naive ₹6.00 premium generation.</span>
+            </div>
+            <div class="cost-comparison-pill">
+              <span class="cost-item baseline">Naive: <del id="banner-baseline-cost">₹6.00</del></span>
+              <span class="cost-arrow">→</span>
+              <span class="cost-item actual">PixelWise: <strong id="banner-actual-cost">₹0.05</strong></span>
+            </div>
+          </div>
+
+          <!-- Image Display Card -->
+          <div class="panel-card result-card">
+            <div class="result-header">
+              <div class="result-title-group">
+                <h3 id="result-title">Generated Educational Material</h3>
+                <span class="result-tag" id="result-tier-tag">Awaiting Generation</span>
+              </div>
+              <div class="result-actions" id="result-actions" style="display:none;">
+                <button class="btn btn-outline btn-sm" id="btn-print-worksheet" title="Print format ready for A4 school paper">
+                  🖨️ Print Worksheet
+                </button>
+                <button class="btn btn-outline btn-sm" id="btn-download-asset">
+                  💾 Download Asset
+                </button>
+              </div>
+            </div>
+
+            <!-- Image Canvas / SVG Frame -->
+            <div class="preview-viewport" id="preview-viewport">
+              <div class="viewport-placeholder" id="viewport-placeholder">
+                <div class="placeholder-icon">🎨</div>
+                <p class="placeholder-title">Ready for Your Classroom Request</p>
+                <p class="placeholder-sub">Select material type and prompt on the left, then click Generate.</p>
+              </div>
+              <div class="svg-container" id="svg-container" style="display:none;"></div>
+              <img id="rendered-image" class="rendered-image" alt="Generated Material" style="display:none;">
+            </div>
+
+            <!-- Quality Feedback Bar -->
+            <div class="quality-feedback-bar" id="quality-feedback-bar" style="display:none;">
+              <span class="q-label">Teacher Quality Evaluation:</span>
+              <button class="btn-q btn-q-pass" id="btn-q-pass">👍 Approved for Classroom</button>
+              <button class="btn-q btn-q-flag" id="btn-q-flag">⚠️ Report Quality Defect</button>
+              <span class="q-msg" id="q-feedback-msg"></span>
+            </div>
+          </div>
+
+          <!-- Detailed Audit & Verification Log Accordion -->
+          <div class="panel-card audit-card" id="audit-card" style="display:none;">
+            <div class="audit-header" id="audit-toggle">
+              <h4>🔍 Request Telemetry &amp; Quality Audit Logs</h4>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="audit-body" id="audit-body">
+              <div class="audit-grid">
+                <div class="audit-col">
+                  <h5>Classification Analysis</h5>
+                  <ul class="audit-list" id="audit-class-list"></ul>
+                </div>
+                <div class="audit-col">
+                  <h5>Quality Verification Checks</h5>
+                  <ul class="audit-list" id="audit-verif-list"></ul>
+                </div>
+                <div class="audit-col">
+                  <h5>Execution Cost Ledger</h5>
+                  <ul class="audit-list" id="audit-cost-list"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: DISTRICT ADMIN DASHBOARD           -->
+    <!-- ========================================== -->
+    <section class="view-panel" id="admin-view">
+      <div class="admin-container">
+        
+        <!-- Admin Header -->
+        <div class="admin-top-bar">
+          <div>
+            <h2>District Education Directorate — Cloud Expenditure Telemetry</h2>
+            <p class="admin-sub">Centralized resource allocation and spending governance across 300 schools.</p>
+          </div>
+          <div class="admin-controls">
+            <a href="/api/admin/export-csv" class="btn btn-outline" download id="btn-export-csv" title="Download official district monthly spend report for all 300 schools">📥 Export Spend CSV</a>
+            <button class="btn btn-outline" id="btn-refresh-admin">🔄 Refresh Telemetry</button>
+            <button class="btn btn-primary" id="btn-open-policies">⚙️ Spending Policies</button>
+          </div>
+        </div>
+
+        <!-- Top Metrics KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card accent-blue">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-content">
+              <span class="kpi-label">Actual Cloud Expenditure</span>
+              <span class="kpi-value" id="kpi-actual-spend">₹28,450.00</span>
+              <span class="kpi-sub">Baseline: <span id="kpi-baseline-spend">₹88,920.00</span></span>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-green">
+            <div class="kpi-icon">🍃</div>
+            <div class="kpi-content">
+              <span class="kpi-label">Net Cloud Savings</span>
+              <span class="kpi-value" id="kpi-saved-spend">₹60,470.00</span>
+              <span class="kpi-trend positive" id="kpi-saved-pct">68.0% Cost Reduction</span>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-purple">
+            <div class="kpi-icon">📦</div>
+            <div class="kpi-content">
+              <span class="kpi-label">Total Requests Fulfilled</span>
+              <span class="kpi-value" id="kpi-total-requests">14,820</span>
+              <span class="kpi-sub">Across 300 Schools</span>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-amber">
+            <div class="kpi-icon">⚡</div>
+            <div class="kpi-content">
+              <span class="kpi-label">Zero-Cost Generation Rate</span>
+              <span class="kpi-value" id="kpi-zero-cost-pct">42.5%</span>
+              <span class="kpi-sub"><span id="kpi-zero-count">6,300</span> Reused &amp; SVG requests</span>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-cyan">
+            <div class="kpi-icon">🎯</div>
+            <div class="kpi-content">
+              <span class="kpi-label">Avg Cost / Acceptable Image</span>
+              <span class="kpi-value" id="kpi-avg-cost">₹1.92</span>
+              <span class="kpi-sub">vs ₹6.00 Naive Price</span>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-rose">
+            <div class="kpi-icon">🛡️</div>
+            <div class="kpi-content">
+              <span class="kpi-label">Auto-Corrected Defects</span>
+              <span class="kpi-value" id="kpi-autocorrect-count">48</span>
+              <span class="kpi-sub">Repaired via PIL at ₹0.02</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Analytics Row (Charts) -->
+        <div class="charts-row">
+          <!-- Chart 1: Daily Spend vs Baseline Trend -->
+          <div class="panel-card chart-card flex-2">
+            <div class="card-title-row">
+              <h3>District Expenditure &amp; Savings Timeline</h3>
+              <span class="chart-legend-hint">Actual Spend vs Naive Baseline</span>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="trendChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 2: Model Tier Distribution -->
+          <div class="panel-card chart-card flex-1">
+            <div class="card-title-row">
+              <h3>Allocation by Generation Tier</h3>
+              <span class="chart-legend-hint">Zero-AI vs Eco vs Advanced</span>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="tierChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 300 Schools Budget & Usage Directory -->
+        <div class="panel-card schools-table-card">
+          <div class="table-header-row">
+            <div>
+              <h3>300 Schools Directory &amp; Budget Telemetry</h3>
+              <span class="table-sub">Per-school monthly budget tracking and policy compliance</span>
+            </div>
+            <div class="table-filters">
+              <input type="text" id="school-search-input" class="form-input form-input-sm" placeholder="🔍 Search school name or ID...">
+              <select id="zone-filter-select" class="form-select form-select-sm">
+                <option value="ALL">All District Zones</option>
+                <option value="North Zone">North Zone</option>
+                <option value="South Zone">South Zone</option>
+                <option value="East Zone">East Zone</option>
+                <option value="West Zone">West Zone</option>
+                <option value="Central Zone">Central Zone</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="schools-table">
+              <thead>
+                <tr>
+                  <th>School ID</th>
+                  <th>School Name</th>
+                  <th>Zone</th>
+                  <th>Monthly Budget</th>
+                  <th>Current Spend</th>
+                  <th>Budget Utilization</th>
+                  <th>Total Requests</th>
+                  <th>Zero-AI / Reused</th>
+                  <th>Policy Status</th>
+                </tr>
+              </thead>
+              <tbody id="schools-tbody">
+                <!-- Dynamically populated via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-pagination" id="table-pagination">
+            <span class="page-info" id="pagination-info">Showing schools 1 to 20 of 300</span>
+            <div class="page-buttons">
+              <button class="btn btn-outline btn-sm" id="btn-page-prev">Previous</button>
+              <button class="btn btn-outline btn-sm" id="btn-page-next">Next</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: LIVE BENCHMARK EVALUATION TOOL     -->
+    <!-- ========================================== -->
+    <section class="view-panel" id="benchmark-view">
+      <div class="benchmark-container">
+        
+        <div class="benchmark-hero">
+          <div class="hero-text">
+            <h2>Baseline Naive System vs PixelWise AI</h2>
+            <p>Direct side-by-side benchmark proving measurable expenditure reduction on identical classroom prompts.</p>
+          </div>
+          <button class="btn btn-primary btn-lg" id="btn-run-benchmark">
+            ⚡ Run 5-Prompt Live District Benchmark
+          </button>
+        </div>
+
+        <!-- Benchmark Comparison Table -->
+        <div class="panel-card benchmark-card">
+          <div class="table-responsive">
+            <table class="data-table benchmark-table" id="benchmark-table">
+              <thead>
+                <tr>
+                  <th>Sample Prompt</th>
+                  <th>Category</th>
+                  <th>Naive System Tier</th>
+                  <th>Naive Cost</th>
+                  <th>PixelWise AI Allocation</th>
+                  <th>PixelWise Cost</th>
+                  <th>Net Savings</th>
+                  <th>Savings %</th>
+                </tr>
+              </thead>
+              <tbody id="benchmark-tbody">
+                <!-- Populated on benchmark run -->
+                <tr>
+                  <td colspan="8" class="text-center py-4">Click "Run 5-Prompt Live District Benchmark" above to execute real-time comparison.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Benchmark Summary Footprint -->
+          <div class="benchmark-summary" id="benchmark-summary" style="display:none;">
+            <div class="summary-col">
+              <span class="s-label">Total Baseline Cost (5 Prompts)</span>
+              <span class="s-val text-red" id="b-tot-baseline">₹30.00</span>
+            </div>
+            <div class="summary-col">
+              <span class="s-label">Total PixelWise AI Cost</span>
+              <span class="s-val text-green" id="b-tot-pixelwise">₹7.95</span>
+            </div>
+            <div class="summary-col highlight-col">
+              <span class="s-label">Total Cloud Expenditure Saved</span>
+              <span class="s-val text-cyan" id="b-tot-saved">₹22.05</span>
+              <span class="s-sub" id="b-tot-pct">73.5% Cloud Cost Reduction</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Comparison Matrix -->
+        <div class="panel-card matrix-card">
+          <h3>Architectural Innovation Comparison</h3>
+          <div class="matrix-grid">
+            <div class="matrix-item">
+              <h4>Conventional AI Generation Platform</h4>
+              <ul>
+                <li>❌ Generates every request with the most expensive model (₹6.00).</li>
+                <li>❌ Zero asset reuse: identical prompts re-generated from scratch.</li>
+                <li>❌ No Zero-AI alternative: pays full diffusion price for coloring outlines.</li>
+                <li>❌ Naive retries: failed low-cost generations trigger uncontrolled escalations.</li>
+                <li>❌ No visibility: district office receives sudden 3x cloud bills.</li>
+              </ul>
+            </div>
+            <div class="matrix-item highlight-matrix">
+              <h4>PixelWise AI Decision Layer</h4>
+              <ul>
+                <li>✅ <strong>Expected Total Cost Optimization</strong>: $E(C) = C_{\text{gen}} + C_{\text{verif}} + E(C_{\text{retry}})$.</li>
+                <li>✅ <strong>300-School Shared Asset Library</strong>: Reuses approved educational graphics at ₹0.00.</li>
+                <li>✅ <strong>Zero-AI SVG Vector Synthesizer</strong>: Clean vector line art ready for classroom printing at ₹0.05.</li>
+                <li>✅ <strong>Failure-Aware Auto-Correction</strong>: Inexpensive PIL binarization (₹0.02) cleans muddy shading without regeneration.</li>
+                <li>✅ <strong>District Spending Policies</strong>: Centralized caps, auto-alert telemetry, and multi-school governance.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 4: SHARED DISTRICT LIBRARY EXPLORER   -->
+    <!-- ========================================== -->
+    <section class="view-panel" id="library-view">
+      <div class="library-container">
+        
+        <div class="panel-header library-header">
+          <div>
+            <h2>300-School Shared Educational Asset Repository</h2>
+            <p class="admin-sub">Curated and pre-approved SVG vectors and illustrations reusable at ₹0.00 cloud generation cost.</p>
+          </div>
+          <div class="library-filters">
+            <input type="text" id="library-search-input" class="form-input form-input-sm" placeholder="🔍 Search assets by name or tag...">
+            <select id="library-category-select" class="form-select form-select-sm">
+              <option value="ALL">All Categories</option>
+              <option value="worksheet">Worksheets (Line Art)</option>
+              <option value="flashcard">Flashcards &amp; Diagrams</option>
+              <option value="poster">Educational Posters</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Asset Cards Grid -->
+        <div class="library-grid" id="library-grid">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 5: EVALUATOR GUIDED DEMO WALKTHROUGH  -->
+    <!-- ========================================== -->
+    <section class="view-panel" id="guided-view">
+      <div class="guided-container">
+        
+        <div class="guided-hero">
+          <h2>🎯 Evaluator Guided Tour: 5 Decision Scenarios</h2>
+          <p>Click any scenario below to immediately execute it, watch the live decision pipeline allocate resources, and observe how PixelWise AI saves money while maintaining quality.</p>
+        </div>
+
+        <div class="guided-scenarios-grid" id="guided-scenarios-grid">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- District Policies Modal -->
+  <div class="modal-overlay" id="policies-modal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>District Cloud Spending Policies</h3>
+        <button class="modal-close" id="btn-close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="policies-form">
+          <div class="form-group">
+            <label for="policy-max-retries">Max Regeneration Retries</label>
+            <input type="number" id="policy-max-retries" class="form-input" min="1" max="4" value="2">
+            <small class="field-hint">Prevents repeated attempts from uncontrollably increasing cloud expenditure.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="policy-max-budget">Max Single Request Budget (₹)</label>
+            <input type="number" id="policy-max-budget" class="form-input" step="0.5" value="8.0">
+            <small class="field-hint">Hard ceiling per image request including verification and escalations.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="policy-school-budget">Monthly School Budget Cap (₹)</label>
+            <input type="number" id="policy-school-budget" class="form-input" value="500.0">
+            <small class="field-hint">Allocated cloud allowance per school per month.</small>
+          </div>
+
+          <div class="form-group">
+            <label class="switch-container">
+              <input type="checkbox" id="policy-autocorrect" checked>
+              <span class="slider"></span>
+              <span class="switch-label">Enable Automated Image Auto-Correction (PIL Binarization at ₹0.02)</span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="switch-container">
+              <input type="checkbox" id="policy-prefer-zero" checked>
+              <span class="slider"></span>
+              <span class="switch-label">Prioritize Zero-AI SVG &amp; Asset Reuse for Simple Line Art</span>
+            </label>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn btn-outline" id="btn-cancel-policies">Cancel</button>
+            <button type="button" class="btn btn-primary" id="btn-save-policies">Save District Policies</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- A4 Printable Worksheet Container (Hidden on screen, shown in print) -->
+  <div id="printable-worksheet" class="printable-worksheet">
+    <div class="print-header">
+      <div class="print-district">DISTRICT EDUCATION OFFICE • 300 SCHOOLS FLEET</div>
+      <div class="print-title" id="print-title">Classroom Worksheet</div>
+      <div class="print-meta-grid">
+        <div class="print-meta-item">Student Name: _______________________</div>
+        <div class="print-meta-item">Date: _______________</div>
+        <div class="print-meta-item">Class / Grade: _________</div>
+        <div class="print-meta-item">School: <span id="print-school-name">Oakridge Primary School</span></div>
+      </div>
+    </div>
+    <div class="print-content" id="print-content">
+      <!-- Printable image or SVG injected here -->
+    </div>
+    <div class="print-footer">
+      Generated via PixelWise AI Decision Layer • Educational Material License
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/teacher.js"></script>
+  <script src="/static/js/admin.js"></script>
+  <script src="/static/js/benchmark.js"></script>
+  <script src="/static/js/library.js"></script>
+  <script src="/static/js/guided.js"></script>
+</body>
+</html>
